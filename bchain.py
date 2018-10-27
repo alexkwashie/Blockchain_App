@@ -5,12 +5,22 @@ def get_last_amount():
 # '-1' used to select last element in an array
 
 def add_val(val, last_num = 1):
-    blockchain.append([last_num, val])
+    blockchain.append([last_num, val]) #2 !important - last_num is set to defult [1]
+
+def get_user_input():
+    return  input('What is your transaction amount: ')
 
 
-add_val(10)
-add_val(1.9, get_last_amount())
-add_val(6.8,get_last_amount())
+tx_amount = get_user_input()
+add_val(tx_amount)
+
+#add_val(get_last_amount(), 9.2)
+
+tx_amount = get_user_input()
+add_val(last_num=get_last_amount(), val = tx_amount)
+
+tx_amount = get_user_input()
+add_val(tx_amount, get_last_amount())
 
 
 print(blockchain)
