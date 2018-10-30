@@ -33,11 +33,27 @@ def print_blockchain_element():
         print('Outputting block')
         print(block)
 
+#How to verify the block:  i.e. so you can not amend previous block
+def verify_chain():
+    block_index = 0 #2
+    is_valid = True
+    for block in blockchain: #1
+        if block_index == 0:
+            block_index += 1
+            continue
+        elif block[0] == blockchain[block_index - 1]:
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        block_index += 1
+    return is_valid #always return the boolean
 
-#Creat a while loo to ask for user input
+#Creat a while loop to ask for user input
 while True:
     print('Please choose option')
     print('1: Add transaction value')
+    print('h: Manipulate the blockchain')
     print('2: Output Block chain blocks')
     print('q: Quit')
 
@@ -50,11 +66,18 @@ while True:
         print('Blockchain is empty, enter valid amount')
     elif user_choice == '2':
         print_blockchain_element()
+    elif user_choice == 'h':
+        if len(blockchain) >=1:
+            blockchain[0] = [2]
     elif user_choice == "q":
         break
     else:
         print('Input was invalid, please choose number from list')
     print('Choice Registered')
+
+    if not verify_chain():
+        print('Invalid Blockchain!')
+        break
 
 
 print('Done!')
