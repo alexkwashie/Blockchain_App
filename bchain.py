@@ -1,6 +1,7 @@
 
 blockchain = []
 open_transactions = []
+owner = 'alex'
 
 def get_blockchain_amount():
     """Returns last value in blockchain array"""
@@ -9,7 +10,7 @@ def get_blockchain_amount():
     return blockchain[-1]
 
 
-def add_val(sender, recipient, amount = 1.0):
+def add_val(recipient, amount = 1.0, sender = owner ):
     """Append a new value as well the last value in the blockchain
 
     Arguments:
@@ -23,14 +24,17 @@ def add_val(sender, recipient, amount = 1.0):
         'amount': amount
     }
 
-    open_transactions.append()
+    open_transactions.append(transaction)
 
 
 def min_block():
     pass
 
 def get_transaction_val():
-    return input('What is your transaction amount: ')
+    #fetch the receipt info
+    tx_recipient = input('Enter the recipient  of the transaction: ')
+    tx_amount = input('What is your transaction amount: ')
+    return tx_recipient, tx_amount #return a tuple i.e. values that can not be changed
 
 def get_user_choice():
     user_input = input('Your Choice: ')
@@ -73,8 +77,10 @@ while waiting_input:
     #put get_user_choice() input in  a variable
     user_choice = get_user_choice()
     if user_choice == '1':
-        tx_amount = get_transaction_val()
-        add_val(tx_amount, get_blockchain_amount())
+        tx_data = get_transaction_val()
+        recipient, amount = tx_data
+        #Add the transaction to the blockchain
+        add_val(recipient, amount)
     elif user_choice == '2' and len(blockchain) < 1:
         print('Blockchain is empty, enter valid amount')
     elif user_choice == '2':
