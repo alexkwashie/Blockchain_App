@@ -1,5 +1,6 @@
 
 blockchain = []
+open_transactions = []
 
 def get_blockchain_amount():
     """Returns last value in blockchain array"""
@@ -8,17 +9,25 @@ def get_blockchain_amount():
     return blockchain[-1]
 
 
-def add_val(val, last_num):
+def add_val(sender, recipient, amount = 1.0):
     """Append a new value as well the last value in the blockchain
 
     Arguments:
-        :val : Is the value that must be manually added
-        : last_num: is the last amount in the blockchain  (defults to '1') to get it started
+        :send : The sender of the coins
+        : recipient: The receiver of the coins
+        : Amount: The amount of coins sent in the trasaction (def: 1.0)
     """
-    if last_num == None:
-        last_num = [1]
-    blockchain.append([last_num, val])  # 2 !important - last_num is set to defult [1]
+    transaction = {
+        'sender': sender,
+        'recipient': recipient,
+        'amount': amount
+    }
 
+    open_transactions.append()
+
+
+def min_block():
+    pass
 
 def get_transaction_val():
     return input('What is your transaction amount: ')
@@ -32,6 +41,8 @@ def print_blockchain_element():
     for block in blockchain:
         print('Outputting block')
         print(block)
+    else:
+        print('-' * 30) #print '-' 30 times ------
 
 #How to verify the block:  i.e. so you can not amend previous block
 def verify_chain():
@@ -40,6 +51,7 @@ def verify_chain():
     for block in blockchain: #1
         if block_index == 0:
             block_index += 1
+            continue # use continue to carry on through the code below: its best used after an 'IF statement' with no 'else'
         elif block[0] == blockchain[block_index - 1]:
             is_valid = True
         else:
@@ -48,8 +60,10 @@ def verify_chain():
         block_index += 1
     return is_valid #always return the boolean
 
-#Creat a while loop to ask for user input
-while True:
+#create a variable to hold True or false value
+waiting_input = True
+#Create a while loop to ask for user input
+while waiting_input:
     print('Please choose option')
     print('1: Add transaction value')
     print('h: Manipulate the blockchain')
@@ -69,7 +83,8 @@ while True:
         if len(blockchain) >=1:
             blockchain[0] = [2]
     elif user_choice == "q":
-        break
+        #break
+        waiting_input = False
     else:
         print('Input was invalid, please choose number from list')
     print('Choice Registered')
@@ -77,6 +92,7 @@ while True:
     if not verify_chain():
         print('Invalid Blockchain!')
         break
-
+else:
+    print('User Left!')
 
 print('Done!')
