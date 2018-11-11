@@ -1,6 +1,6 @@
 #create  a Genesis block to start the blockchain
 genesis_block = {
-    'previous_hash': '',
+    'previous_hash': ' ',
     'index' : 0,
     'Transactions' : []
 }
@@ -34,17 +34,18 @@ def add_val(recipient, sender = owner, amount = 1.0):
 
 def mine_block():
     last_block = blockchain[-1]
-    hashed_block = ' '
-    for keys in last_block:
-        value = last_block[keys]
-        hashed_block = hashed_block + str(value)
-
+    hashed_block ='-'.join([str(last_block[key]) for key in last_block])
+    # for keys in last_block:
+    #     value = last_block[keys]
+    #     hashed_block = hashed_block + str(value)
+    print(hashed_block)
     block = {
         'previous_hash': hashed_block,
         'index' : len(blockchain),
         'Transactions': open_transactions
     }
     blockchain.append(block)
+
 
 
 def get_transaction_val():
