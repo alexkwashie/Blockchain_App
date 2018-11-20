@@ -4,18 +4,23 @@ genesis_block = {
     'index' : 0,
     'Transactions' : []
 }
+#
 
 blockchain = [genesis_block]
 open_transactions = []
 owner = 'alex'
+#
 
 def get_blockchain_amount():
     """Returns last value in blockchain array"""
     if len(blockchain) <  1:
         return None
     return blockchain[-1]
+#
+def hash_block(block):
+    return '-'.join([str(block[key]) for key in block]) #List comperehension
 
-
+#
 def add_val(recipient, sender = owner, amount = 1.0):
     """Append a new value as well the last value in the blockchain
 
@@ -31,10 +36,10 @@ def add_val(recipient, sender = owner, amount = 1.0):
     }
     open_transactions.append(transaction)
 
-
+#
 def mine_block():
     last_block = blockchain[-1]
-    hashed_block ='-'.join([str(last_block[key]) for key in last_block])
+    hashed_block = hash_block(last_block)
     # for keys in last_block:
     #     value = last_block[keys]
     #     hashed_block = hashed_block + str(value)
@@ -47,17 +52,17 @@ def mine_block():
     blockchain.append(block)
 
 
-
+#
 def get_transaction_val():
     #fetch the receipt info
     tx_recipient = input('Enter the recipient  of the transaction: ')
     tx_amount = input('What is your transaction amount: ')
     return (tx_recipient, tx_amount) #return a tuple i.e. values that can not be changed
-
+#
 def get_user_choice():
     user_input = input('Your Choice: ')
     return user_input
-
+#
 def print_blockchain_element():
     #Outputting the list in the blockchain
     for block in blockchain:
@@ -68,19 +73,7 @@ def print_blockchain_element():
 
 #How to verify the block:  i.e. so you can not amend previous block
 def verify_chain():
-    block_index = 0 #2
-    is_valid = True
-    for block in blockchain: #1
-        if block_index == 0:
-            block_index += 1
-            continue # use continue to carry on through the code below: its best used after an 'IF statement' with no 'else'
-        elif block[0] == blockchain[block_index - 1]:
-            is_valid = True
-        else:
-            is_valid = False
-            break
-        block_index += 1
-    return is_valid #always return the boolean
+    pass
 
 #create a variable to hold True or false value
 waiting_input = True
